@@ -27,3 +27,5 @@ Testing
 Either build from source as specified above, or use the app-debug.apk included in the root directory.
 
 Succesfully tested on Motorola XT1039 device with Android 5.1 Lollipop
+
+![screenshot](http://s9.postimg.org/4848a6hhb/Screenshot_2015_09_23_23_06_51.png)
