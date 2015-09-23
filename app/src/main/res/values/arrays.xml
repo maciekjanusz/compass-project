@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Length unit -->
+    <string-array name="entries_length_unit_list_preference">
+        <item>@string/length_unit_default_label</item>
+        <item>@string/length_unit_optional_label</item>
+    </string-array>
+
+    <string-array name="entry_values_length_unit_list_preference">
+        <item>@string/length_unit_default</item>
+        <item>@string/length_unit_optional</item>
+    </string-array>
+
+    <!-- Coordinates input mode -->
+    <string-array name="entries_coordinates_input_mode_preference">
+        <item>@string/coordinates_input_mode_default_label</item>
+        <item>@string/coordinates_input_mode_optional_label</item>
+    </string-array>
+
+    <string-array name="entry_values_coordinates_input_mode_preference">
+        <item>@string/coordinates_input_mode_default</item>
+        <item>@string/coordinates_input_mode_optional</item>
+    </string-array>
+
+    <!-- Cardinal directions -->
+    <string-array name="cardinal_directions">
+        <item name="north"     >N </item>
+        <item name="north_east">NE</item>
+        <item name="east"      >E </item>
+        <item name="south_east">SE</item>
+        <item name="south"     >S </item>
+        <item name="south_west">SW</item>
+        <item name="west"      >W </item>
+        <item name="north_west">NW</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,68 @@
+<resources>
+    <!-- Titles-->
+    <string name="app_name">Compass</string>
+    <string name="settings">Settings</string>
+
+    <!-- Labels & actions -->
+    <string name="widget">Widget</string>
+    <string name="preference_category_app">App preferences</string>
+    <string name="pick_place">Navigate to location:</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="pick_on_map">Pick on map</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="latitude_degrees">Lat °</string>
+    <string name="latitude_minutes">Lat \'</string>
+    <string name="latitude_seconds">Lat \"</string>
+    <string name="longitude_degrees">Lon °</string>
+    <string name="longitude_minutes">Lon \'</string>
+    <string name="longitude_seconds">Lon \"</string>
+    <string name="roll_label">Roll</string>
+    <string name="pitch_label">Pitch</string>
+
+    <!-- Dialog & SnackBar messages -->
+    <string name="location_invalid">Invalid location</string>
+    <string name="resolution_successful">Navigation feature should work now. Try again</string>
+    <string name="resolution_failed">Something bad happened. Please try again.</string>
+    <string name="navigation_service_content_text">Click to return to compass app.</string>
+    <string name="widget_info">Long click on widget to drag it around.</string>
+    <string name="sensors_unavailable_error">Unfortunately your device is not supported. Sorry!</string>
+    <string name="do_not_show_again">Do not show again</string>
+
+    <!-- Units -->
+    <string name="unit_mile" translatable="false">mi</string>
+    <string name="unit_kilometer" translatable="false">km</string>
+    <string name="unit_meter" translatable="false">m</string>
+    <string name="infinity" translatable="false">\u221E</string>
+    <string name="unit_kmh" translatable="false">km/h</string>
+    <string name="unit_mph" translatable="false">mph</string>
+    <string name="days" translatable="false">d</string>
+    <string name="hours" translatable="false">h</string>
+    <string name="minutes" translatable="false">min.</string>
+
+    <!-- Strings for ListPreferences -->
+    <!-- Unit system -->
+    <string name="length_unit_list_preference">Unit system</string>
+    <string name="length_unit_list_preference_key" translatable="false">length_unit_list_preference</string>
+    <string name="length_unit_default" translatable="false">metric</string>
+    <string name="length_unit_optional" translatable="false">imperial</string>
+    <string name="length_unit_default_label">Metric</string>
+    <string name="length_unit_optional_label">Imperial</string>
+    <!-- Coordinates input mode -->
+    <string name="coordinates_input_mode_preference">Coordinates input mode</string>
+    <string name="coordinates_input_mode_preference_key" translatable="false">coordinates_input_mode_preference</string>
+    <string name="coordinates_input_mode_default" translatable="false">decimal</string>
+    <string name="coordinates_input_mode_optional" translatable="false">degrees</string>
+    <string name="coordinates_input_mode_default_label">Decimal</string>
+    <string name="coordinates_input_mode_optional_label">Degrees, minutes, seconds</string>
+
+    <!-- Format strings -->
+    <string name="decimal_coordinates_format">%1$.3f, %2$.3f</string>
+    <string name="dms_coordinates_format">%1$d° %2$d\' %3$.3f\", %4$d° %5$d\' %6$.3f\"</string>
+    <string name="speed_format">%1$d %2$s</string>
+    <string name="duration_format">%1$d %2$s</string>
+    <string name="metric_distance_format">%1$d %2$s</string>
+    <string name="imperial_distance_format">%1$.2f %2$s</string>
+    <string name="navigation_service_content_title_format">Navigating to %1$f, %2$f</string>
+</resources>

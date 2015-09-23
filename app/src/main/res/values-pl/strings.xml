@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kompas</string>
+    <string name="cancel">Anuluj</string>
+    <string name="confirm">OK</string>
+    <string name="coordinates_input_mode_preference">Tryb wpisywania współrzędnych</string>
+    <string name="latitude">Szerokość geograficzna</string>
+    <string name="latitude_degrees">Sz. °</string>
+    <string name="latitude_minutes">Sz. \'</string>
+    <string name="latitude_seconds">Sz. \"</string>
+    <string name="length_unit_list_preference">Jednostki</string>
+    <string name="location_invalid">Niepoprawna lokalizacja</string>
+    <string name="longitude">Długość geograficzna</string>
+    <string name="longitude_degrees">Dł. °</string>
+    <string name="longitude_minutes">Dł. \'</string>
+    <string name="longitude_seconds">Dł. \"</string>
+    <string name="navigation_service_content_text">Kliknij aby powrócić do aplikacji.</string>
+    <string name="navigation_service_content_title_format">Nawigacja do %1$f, %2$f</string>
+    <string name="pick_on_map">Wybierz na mapie</string>
+    <string name="pick_place">Kieruj do:</string>
+    <string name="pitch_label">Nachylenie</string>
+    <string name="preference_category_app">Preferencje</string>
+    <string name="resolution_failed">Wystąpił problem. Spróbuj ponownie.</string>
+    <string name="resolution_successful">Funkcja nawigacji jest już dostępna. Spróbuj ponownie.</string>
+    <string name="roll_label">Obrót</string>
+    <string name="sensors_unavailable_error">Niestety, twoje urządzenie nie obsługuje tej aplikacji. Przepraszamy.</string>
+    <string name="settings">Ustawienia</string>
+    <string name="widget_info">Kliknij widget i przytrzymaj, aby przemieścić go po ekranie.</string>
+    <string name="do_not_show_again">Nie pokazuj</string>
+    <string name="coordinates_input_mode_default_label">Dziesiętny</string>
+    <string name="coordinates_input_mode_optional_label">Stopnie, minuty, sekundy</string>
+    <string name="length_unit_default_label">Metryczne</string>
+    <string name="length_unit_optional_label">Imperialne</string>
+</resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.maciekjanusz.compassproject" >
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" />
+    <uses-feature android:name="android.hardware.sensor.compass"       android:required="true" />
+
+    <application
+        android:allowBackup="false"
+        android:icon="@drawable/ic_explore_black_48dp"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+
+        <activity android:name=".ui.CompassActivity"
+            android:launchMode="singleInstance">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".preferences.PreferencesActivity"
+            android:label="@string/settings"
+            android:parentActivityName=".ui.CompassActivity"
+            tools:ignore="UnusedAttribute">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.maciekjanusz.compassproject.ui.CompassActivity" />
+        </activity>
+
+        <service android:name=".navigation.NavigationService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <service android:name=".ui.ScreenWidgetService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBv9rXK5pPtHa2SKN1VhoxKJEg8UaRwN0g"/>
+        <!-- compass-debug-key -->
+
+    </application>
+
+</manifest>

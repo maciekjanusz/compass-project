@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/preference_category_app">
+
+        <ListPreference
+            android:key="@string/length_unit_list_preference_key"
+            android:title="@string/length_unit_list_preference"
+            android:entries="@array/entries_length_unit_list_preference"
+            android:entryValues="@array/entry_values_length_unit_list_preference"
+            android:defaultValue="@string/length_unit_default"/>
+
+        <ListPreference
+            android:key="@string/coordinates_input_mode_preference_key"
+            android:title="@string/coordinates_input_mode_preference"
+            android:entries="@array/entries_coordinates_input_mode_preference"
+            android:entryValues="@array/entry_values_coordinates_input_mode_preference"
+            android:defaultValue="@string/coordinates_input_mode_default"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
