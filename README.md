@@ -1,7 +1,6 @@
 #compass-project
 
-
-This is an example Compass android app project for guys at Netguru.
+How to write an android compass app? Here's one way to do it
 
 Features
 -
