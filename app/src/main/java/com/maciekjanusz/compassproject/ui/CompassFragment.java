@@ -1,17 +1,22 @@
 package com.maciekjanusz.compassproject.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.display.DisplayManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.SwitchCompat;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,6 +29,8 @@ import com.maciekjanusz.compassproject.navigation.NavigationService;
 import com.maciekjanusz.compassproject.navigation.ServiceMessage;
 import com.maciekjanusz.compassproject.navigation.ServiceState;
 import com.maciekjanusz.compassproject.sensor.Compass;
+import com.maciekjanusz.compassproject.util.ScreenRotationAware;
+import com.maciekjanusz.compassproject.util.SimpleDisplayListener;
 import com.maciekjanusz.compassproject.util.ValueFormatter;
 
 import butterknife.Bind;
@@ -35,7 +42,8 @@ import static com.maciekjanusz.compassproject.preferences.AppPreferences.isWidge
 import static com.maciekjanusz.compassproject.util.CompassMath.adjustBearing;
 import static com.maciekjanusz.compassproject.util.CompassMath.calculateTimeToReach;
 
-public class CompassFragment extends Fragment implements Compass.CompassListener {
+public class CompassFragment extends Fragment implements Compass.CompassListener,
+        ScreenRotationAware {
 
     private static final String LOCATION_INPUT_DIALOG_TAG = "location_input_dialog";
 
@@ -52,13 +60,29 @@ public class CompassFragment extends Fragment implements Compass.CompassListener
 
     private Compass compass;
     private ValueFormatter valueFormatter;
+    private WindowManager windowManager;
+    private DisplayManager displayManager;
     private final LocationInputDialogFragment locationInputDialogFragment =
             new LocationInputDialogFragment();
 
     private ServiceState currentServiceState = ServiceState.NAVIGATION_STOPPED;
-    private int deviceScreenRotation;
+    private volatile int deviceScreenRotation;
     private int currentPitch;
     private int currentRoll;
+
+    private DisplayManager.DisplayListener displayListener = new SimpleDisplayListener() {
+        @Override
+        public void onDisplayChanged(int displayId) {
+            updateRotation();
+        }
+    };
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+        displayManager = (DisplayManager) context.getSystemService(Context.DISPLAY_SERVICE);
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -103,6 +127,19 @@ public class CompassFragment extends Fragment implements Compass.CompassListener
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        displayManager.registerDisplayListener(displayListener, null);
+    }
+
+    @Override
+    public void onStop() {
+        displayManager.unregisterDisplayListener(displayListener);
+        super.onStop();
+
+    }
+
+    @Override
     public void onPause() {
         EventBus.getDefault().unregister(this);
         compass.stop();
@@ -138,17 +175,9 @@ public class CompassFragment extends Fragment implements Compass.CompassListener
         updatePitchAndRoll(pitch, roll);
     }
 
-    private void updateRotation() {
-        Display display = getActivity().getWindowManager().getDefaultDisplay();
-        deviceScreenRotation = display.getRotation();
-
-        /*
-            TODO: there is a problem:
-            if screen is rotated from landscape to opposite landscape (or from portrait to
-            upside down portrait), reconfiguration is not triggered, and compass will show
-            bearings as adjusted for previous screen rotation. Currently I don't know
-            how to detect these screen rotation changes.
-         */
+    @Override
+    public synchronized void updateRotation() {
+        deviceScreenRotation = windowManager.getDefaultDisplay().getRotation();
     }
 
     @SuppressWarnings("unused")

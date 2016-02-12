@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.PixelFormat;
+import android.hardware.display.DisplayManager;
 import android.os.Build;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
@@ -20,6 +21,8 @@ import com.maciekjanusz.compassproject.sensor.Compass;
 import com.maciekjanusz.compassproject.navigation.NavigationBundle;
 import com.maciekjanusz.compassproject.navigation.ServiceMessage;
 import com.maciekjanusz.compassproject.navigation.ServiceState;
+import com.maciekjanusz.compassproject.util.ScreenRotationAware;
+import com.maciekjanusz.compassproject.util.SimpleDisplayListener;
 import com.maciekjanusz.draglayout.DragLayout;
 
 import de.greenrobot.event.EventBus;
@@ -27,19 +30,21 @@ import de.greenrobot.event.EventBus;
 import static com.maciekjanusz.compassproject.preferences.AppPreferences.WIDGET_SERVICE_RUNNING;
 import static com.maciekjanusz.compassproject.util.CompassMath.adjustBearing;
 
-public class ScreenWidgetService extends Service implements DragLayout.DragListener, Compass.CompassListener {
+public class ScreenWidgetService extends Service implements DragLayout.DragListener,
+        Compass.CompassListener, ScreenRotationAware {
 
     private static final int SIZE_DP = 96;
     private static final int WIDGET_SCALE_LINES = 72;
 
     private WindowManager.LayoutParams params;
     private WindowManager windowManager;
+    private DisplayManager displayManager;
     private DragLayout dragLayout;
     private CompassView compassView;
-    private Compass compass;
 
+    private Compass compass;
     private float currentRoll;
-    private int rotation;
+    private volatile int rotation;
     private boolean started;
 
     @Override
@@ -56,12 +61,23 @@ public class ScreenWidgetService extends Service implements DragLayout.DragListe
         initViews();
     }
 
+    private DisplayManager.DisplayListener displayListener = new SimpleDisplayListener() {
+        @Override
+        public void onDisplayChanged(int displayId) {
+            updateRotation();
+        }
+    };
+
     private void initViews() {
         int sizePx = dpToPx(SIZE_DP);
 
         windowManager = ((WindowManager) getApplicationContext().
                 getSystemService(Context.WINDOW_SERVICE));
-        rotation = windowManager.getDefaultDisplay().getRotation();
+        displayManager = ((DisplayManager) getApplicationContext()
+                .getSystemService(Context.DISPLAY_SERVICE));
+        displayManager.registerDisplayListener(displayListener, null);
+        updateRotation();
+
         // init compass view
         compassView = new CompassView(this);
         compassView.setCompassEnabled(true);
@@ -125,12 +141,18 @@ public class ScreenWidgetService extends Service implements DragLayout.DragListe
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         // update screen rotation
+        updateRotation();
+    }
+
+    @Override
+    public synchronized void updateRotation() {
         rotation = windowManager.getDefaultDisplay().getRotation();
     }
 
     @Override
     public void onDestroy() {
         compass.stop();
+        displayManager.unregisterDisplayListener(displayListener);
         removeOverlayView();
         EventBus.getDefault().unregister(this);
         saveRunningPref(false);
